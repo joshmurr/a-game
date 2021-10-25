@@ -2,7 +2,7 @@
 module.exports={
   "name": "a-game",
   "title": "A-Game",
-  "version": "0.33.0",
+  "version": "0.35.0",
   "description": "game components for A-Frame",
   "homepage": "https://github.com/poeticAndroid/a-game/blob/master/README.md",
   "main": "index.js",
@@ -1218,7 +1218,7 @@ AFRAME.registerComponent("locomotion", {
       quantizeMovement: false,
       quantizeRotation: false,
       quantizeMovementVR: !!(this.el.sceneEl.isMobile),
-      quantizeRotationVR: true
+      quantizeRotationVR: false
     }
     if (this.el.sceneEl.is('vr-mode')) this._onEnterVR()
     else this._onExitVR()

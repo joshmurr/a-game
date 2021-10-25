@@ -44,7 +44,7 @@ AFRAME.registerComponent("locomotion", {
       quantizeMovement: false,
       quantizeRotation: false,
       quantizeMovementVR: !!(this.el.sceneEl.isMobile),
-      quantizeRotationVR: true
+      quantizeRotationVR: false
     }
     if (this.el.sceneEl.is('vr-mode')) this._onEnterVR()
     else this._onExitVR()
