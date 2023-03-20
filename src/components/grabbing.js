@@ -411,19 +411,59 @@ AFRAME.registerComponent("grabbing", {
       this[_hand].glove.setAttribute("body", "collidesWith", 1)
     }, 1024)
     if (this[_hand].grabbed) {
-      this.emit("drop", this[_hand].glove, this[_hand].grabbed)
+      this.emit('drop', this[_hand].glove, this[_hand].grabbed)
       this._grabCount = Math.max(0, this._grabCount - 1)
-      if (!this._grabCount)
-        this.el.removeState("grabbing")
+      if (!this._grabCount) this.el.removeState('grabbing')
       this._restoreUserFlex(hand)
-      this[_hand].grabbed.removeState("grabbed")
-      if (this[_hand].grabbed.components.grabbable?.data.kinematicGrab && !this[_hand].grabbed.components.grabbable?.data.immovable) {
-        this[_hand].grabbed.components.body?.applyWorldImpulse(this[_hand].gloveVelocity, this[_hand].lastGlovePos)
-        this[_hand].grabbed.components.body?.applyWorldImpulse(this[_hand].grabbedVelocity, this[_hand].lastGrabbedPos)
+      this[_hand].grabbed.removeState('grabbed')
+      if (
+        this[_hand].grabbed.components.grabbable?.data.kinematicGrab &&
+        !this[_hand].grabbed.components.grabbable?.data.immovable
+      ) {
+        this[_hand].grabbed.components.body?.applyWorldImpulse(
+          this[_hand].gloveVelocity,
+          this[_hand].lastGlovePos
+        )
+        this[_hand].grabbed.components.body?.applyWorldImpulse(
+          this[_hand].grabbedVelocity,
+          this[_hand].lastGrabbedPos
+        )
+
+        const genString = (data, order = 'XYZ', applyFn = (x) => x) => {
+          const o = order.toLowerCase()
+          const ret = []
+          for (let c of o) {
+            const d = data[c] || data[`_${c}`]
+            ret.push(applyFn(d))
+          }
+
+          return ret.join(' ')
+        }
+
+        const el = this[_hand].grabbed.components.body.el
+        const id = el.id
+        const position = el.object3D.position
+        const rotation = el.object3D.rotation
+        const data = {}
+
+        data[id] = {
+          position: genString(position),
+          rotation: genString(rotation, "XYZ", (x) => x * 180/Math.PI),
+        }
+
+        const savePosition = document.getElementById('save-position-from-vr').checked
+        console.log('savePosition? ', savePosition)
+        if(savePosition) {
+          const message = {
+            changes: data,
+            target: "accelerate-editor"
+          };
+          parent.postMessage(JSON.stringify(message), '*')
+        }
       }
       this[_hand].grabbed = null
-      if (hand === "head") {
-        this[_hand].ray.removeAttribute("animation__pos")
+      if (hand === 'head') {
+        this[_hand].ray.removeAttribute('animation__pos')
         this[_hand].ray.object3D.position.y = 0
       }
     }
