@@ -183,6 +183,14 @@ AFRAME.registerComponent("locomotion", {
         this._vertVelocity -= this.data.gravity * timeDelta
         this.move(THREE.Vector3.temp().set(0, Math.max(-0.5, this._vertVelocity * timeDelta), 0))
         this.currentFloor = null
+        const respawnLimit = Number(document.getElementById("falling-respawn-limit").value)
+         if(respawnLimit > -1 && this._vertVelocity < -Math.abs(respawnLimit)) {
+          const message = {
+            target: "accelerate-editor",
+            respawn: true
+          };
+          parent.postMessage(JSON.stringify(message), "*")
+        }
       }
     }
 

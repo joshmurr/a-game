@@ -19,7 +19,6 @@ This makes it possible to move around the using the following controls.
 | Crouch                                  | Right stick down       | C       | Right side swipe down       |
 | Toggle god mode (if enabled)            | Click left stick       | G       |
 
-
 ## Properties
 
 | Property         | Description                                                      | Default |
@@ -31,7 +30,6 @@ This makes it possible to move around the using the following controls.
 | gravity          | Amount of gravity when jumping and falling                       | 10      |
 | godMode          | Enable ability to fly through walls and floors in any direction  | false   |
 
-
 ## Methods
 
 | Method               | Description                                                                                            |
@@ -42,7 +40,6 @@ This makes it possible to move around the using the following controls.
 | jump()               | Make the player jump if possible.                                                                      |
 | stopFall()           | Stop the fall momentarily.                                                                             |
 
-
 ## Events
 
 | Event | Description                                  |
@@ -50,10 +47,8 @@ This makes it possible to move around the using the following controls.
 | step  | Every time the player takes a simulated step |
 | bump  | Player bumps into wall                       |
 
-
 ## Related components
 
- - [floor](./locomotion/floor.md)
- - [wall](./locomotion/wall.md)
- - [start](./locomotion/start.md)
- 
+- [floor](./locomotion/floor.md)
+- [wall](./locomotion/wall.md)
+- [start](./locomotion/start.md)

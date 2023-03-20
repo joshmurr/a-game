@@ -2,7 +2,7 @@
 module.exports={
   "name": "a-game",
   "title": "A-Game",
-  "version": "0.36.0",
+  "version": "0.37.0",
   "description": "game components for A-Frame",
   "homepage": "https://github.com/poeticAndroid/a-game/blob/master/README.md",
   "main": "index.js",
@@ -1357,6 +1357,14 @@ AFRAME.registerComponent("locomotion", {
         this._vertVelocity -= this.data.gravity * timeDelta
         this.move(THREE.Vector3.temp().set(0, Math.max(-0.5, this._vertVelocity * timeDelta), 0))
         this.currentFloor = null
+        const respawnLimit = Number(document.getElementById('falling-respawn-limit').value)
+         if(respawnLimit > -1 && this._vertVelocity < -Math.abs(respawnLimit)) {
+          const message = {
+            target: "accelerate-editor",
+            respawn: true
+          };
+          parent.postMessage(JSON.stringify(message), '*')
+        }
       }
     }
 
