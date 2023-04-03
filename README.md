@@ -1,54 +1,10 @@
-# A-Game!
+# Accelerate Editor A-Game
 
-Essential game components for [A-Frame](https://aframe.io/)!
+This is a for of [poeticAndroid/a-game](https://github.com/poeticAndroid/a-game) patched for use with the [Accelerate Editor](https://accelerate-editor.web.app/).
 
-```html
-<html>
-  <head>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/poeticAndroid/a-game@v0.33.0/dist/a-game.min.js"></script>
-  </head>
-  <body>
-    <a-scene physics>
-      <a-entity include="./scenes/_assets.html"></a-entity>
-      <a-player locomotion grabbing></a-player>
-      <a-main include="./scenes/level1.html">
-        <a-box floor color="gray" width="32" height="0.25" depth="32"></a-box>
-      </a-main>
-    </a-scene>
-  </body>
-</html>
-```
+## Change Log
 
-**[Demo!](https://a-game-demo.glitch.me)**
-
-
-## Primitives
-
- - [a-hand](./src/primitives/a-hand.md)
- - [a-main](./src/primitives/a-main.md)
- - [a-player](./src/primitives/a-player.md)
-
-
-## Components
-
- - [grabbing](./src/components/grabbing.md)
-   - [button](./src/components/grabbing/button.md)
-   - [climbable](./src/components/grabbing/climbable.md)
-   - [fingerflex](./src/components/grabbing/fingerflex.md)
-   - [grabbable](./src/components/grabbing/grabbable.md)
-   - [receptacle](./src/components/grabbing/receptacle.md)
- - [include](./src/components/include.md)
- - [locomotion](./src/components/locomotion.md)
-   - [floor](./src/components/locomotion/floor.md)
-   - [start](./src/components/locomotion/start.md)
-   - [wall](./src/components/locomotion/wall.md)
- - [onevent](./src/components/onevent.md)
- - [onstate](./src/components/onstate.md)
- - [physics](./src/components/physics.md)
-   - [body](./src/components/physics/body.md)
-   - [joint](./src/components/physics/joint.md)
-   - [shape](./src/components/physics/shape.md)
- - [script](./src/components/script.md)
- - [trigger](./src/components/trigger.md)
- 
+- We have the ability to `postMessage` the position of objects which are grabbed and moved whilst in VR (first-person) mode ([see line 461 of components/grabbing.js here](https://github.com/joshmurr/a-game/blob/master/src/components/grabbing.js#L461))
+- If the user falls indefinitely, we can automatically respawn using the respawn limit (see below) by comparing this with the players `_vertVelocity` ([see line 188 of components/locomotion.js here](https://github.com/joshmurr/a-game/blob/master/src/components/locomotion.js#L188)).
+- The above values are set in the (edited) A-Frame Inspector:
+  ![A-Frame Inspector](./images/inspector.png)
