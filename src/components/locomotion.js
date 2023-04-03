@@ -40,7 +40,7 @@ AFRAME.registerComponent("locomotion", {
     this.feetPos = new THREE.Vector3()
     this.lastStep = new THREE.Vector3()
 
-    this.respawnLimit = Number(document.getElementById("falling-respawn-limit")?.value || 20)
+    this.respawnLimit = parseInt(document.getElementById("falling-respawn-limit")?.value || 20)
 
     this._config = {
       quantizeMovement: false,
