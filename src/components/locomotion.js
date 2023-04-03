@@ -40,6 +40,8 @@ AFRAME.registerComponent("locomotion", {
     this.feetPos = new THREE.Vector3()
     this.lastStep = new THREE.Vector3()
 
+    this.respawnLimit = Number(document.getElementById("falling-respawn-limit")?.value || 20)
+
     this._config = {
       quantizeMovement: false,
       quantizeRotation: false,
@@ -183,8 +185,7 @@ AFRAME.registerComponent("locomotion", {
         this._vertVelocity -= this.data.gravity * timeDelta
         this.move(THREE.Vector3.temp().set(0, Math.max(-0.5, this._vertVelocity * timeDelta), 0))
         this.currentFloor = null
-        const respawnLimit = Number(document.getElementById("falling-respawn-limit").value)
-         if(respawnLimit > -1 && this._vertVelocity < -Math.abs(respawnLimit)) {
+         if(this.respawnLimit > -1 && this._vertVelocity < -Math.abs(this.respawnLimit)) {
           const message = {
             target: "accelerate-editor",
             respawn: true
