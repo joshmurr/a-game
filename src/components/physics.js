@@ -6,7 +6,8 @@ const pkg = require("../../package")
 
 AFRAME.registerSystem("physics", {
   schema: {
-    workerUrl: { type: "string", default: `https://cdn.jsdelivr.net/gh/poeticAndroid/a-game@v${pkg.version}/dist/cannonWorker.min.js` },
+    /* NOTE: Fix cannonWorker to v0.33.0 */
+    workerUrl: { type: "string", default: `https://cdn.jsdelivr.net/gh/poeticAndroid/a-game@v0.33.0/dist/cannonWorker.min.js` },
     gravity: { type: "vec3", default: { x: 0, y: -10, z: 0 } },
     debug: { type: "boolean", default: false }
   },
