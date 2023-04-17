@@ -1,7 +1,7 @@
 /* global AFRAME, THREE */
 
 AFRAME.registerComponent("locomotion", {
-  dependencies: ["position", "injectplayer"],
+  dependencies: ["position", "injectPlayer"],
   schema: {
     speed: { type: "number", default: 4 },
     stepLength: { type: "number", default: 1 },
@@ -74,6 +74,7 @@ AFRAME.registerComponent("locomotion", {
     })
     this._headBumper = this.el.sceneEl.ensure(".head-bumper", "a-entity", {
       class: "head-bumper", position: "0 0.5 0", // radius: 0.125, color: "green",
+      networked: "template: #avatar-template; attachTemplateToLocal:false;",
       raycaster: {
         autoRefresh: false,
         objects: "[wall]",
@@ -92,6 +93,7 @@ AFRAME.registerComponent("locomotion", {
       class: "teleport-cursor", radius: 0.5, height: 0.0625, material: "opacity:0.5;"
     })
     this._teleportCursor.setAttribute("visible", false)
+
   },
 
   update(oldData) {
@@ -143,6 +145,9 @@ AFRAME.registerComponent("locomotion", {
       .applyQuaternion(this.el.object3D.getWorldQuaternion(THREE.Quaternion.temp()))
     this._legs.object3D.localToWorld(this.feetPos.set(0, 0, 0))
     this.feetPos.y -= 0.5
+
+    /* NOTE: Networked-Aframe Integration Patch: */
+    this._headBumper.object3D.rotation.copy(this._camera.object3D.rotation)
 
     this._applyButtons(timeDelta)
     this._applyMoveStick(timeDelta)
